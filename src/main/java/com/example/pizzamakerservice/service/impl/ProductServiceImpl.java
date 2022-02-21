@@ -17,19 +17,16 @@ public class ProductServiceImpl implements ProductService {
     ProductRepository productRepository = new ProductRepository();
     ProductToIngredientRepository productToIngredientRepository = new ProductToIngredientRepository();
 
-
     @Override
     public Product readProduct(int id) {
         Product product = new Product();
         List<ProductDto> fromDb = productRepository.read(id);
-
         product.setId(fromDb.get(0).getId());
         product.setProductTypeId(fromDb.get(0).getProductTypeId());
         product.setPrice(fromDb.get(0).getPrice());
         product.setName(fromDb.get(0).getName());
         product.setImagePath(fromDb.get(0).getImagePath());
         product.setCurrency(fromDb.get(0).getCurrency());
-
         return product;
     }
 
@@ -37,7 +34,6 @@ public class ProductServiceImpl implements ProductService {
     public ProductDto read(int id) {
         ProductDto productDto = new ProductDto();
         List<ProductDto> fromDb = productRepository.read(id);
-
         productDto.setId(fromDb.get(0).getId());
         productDto.setProductTypeId(fromDb.get(0).getProductTypeId());
         productDto.setPrice(fromDb.get(0).getPrice());
@@ -45,18 +41,15 @@ public class ProductServiceImpl implements ProductService {
         productDto.setImagePath(fromDb.get(0).getImagePath());
         productDto.setCurrency(fromDb.get(0).getCurrency());
         productDto.setIngredients(new LinkedList<>());
-
         fromDb.forEach(item -> {
             Ingredient ingredient = new Ingredient(item.getIngredientId(), item.getIngredientName());
             productDto.getIngredients().add(ingredient);
         });
-
         return productDto;
     }
 
     @Override
     public List<ProductDto> readAll() {
-
         List<ProductDto> fromDb = productRepository.readAll();
         List<ProductDto> data = new LinkedList<>();
         fromDb.forEach(item -> {
@@ -81,9 +74,7 @@ public class ProductServiceImpl implements ProductService {
                 data.add(productDto);
             }
             item.setId(-1);
-
         });
-
         return data;
     }
 
@@ -94,26 +85,21 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void create(ProductDto productDto) {
-
         if (productDto == null) {
             return;
         }
 
         Product product = new Product();
         productRepository.create(product);
-
         productDto.getIngredients().forEach(item -> {
             ProductToIngredient productToIngredient = new ProductToIngredient();
-
             productToIngredient.setIngredientId(item.getId());
             List<ProductDto> productDtos = productRepository.readAll();
             int id = productDtos.get(productDtos.size() - 1).getId();
             productToIngredient.setProductId(id);
             productToIngredientRepository.create(productToIngredient);
         });
-
     }
-
 
     @Override
     public ProductDto update(int id, ProductDto productDto) {
@@ -127,7 +113,6 @@ public class ProductServiceImpl implements ProductService {
             p.setCurrency(productDto.getCurrency());
             productRepository.update(p);
         }
-
         if (productToIngredientRepository.readByProduct(id) != null) {
             List<Ingredient> ingredients = productDto.getIngredients();
             ingredients.forEach(item -> {

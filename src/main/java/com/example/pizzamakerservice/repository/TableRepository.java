@@ -1,9 +1,7 @@
 package com.example.pizzamakerservice.repository;
 
-
 import com.example.pizzamakerservice.model.Table;
 import com.example.pizzamakerservice.util.SQLConnector;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +11,6 @@ import java.util.List;
 
 public class TableRepository {
     public Table read(int id) {
-
         Connection connection = SQLConnector.getConnection();
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
@@ -21,11 +18,9 @@ public class TableRepository {
             pstmt = connection.prepareStatement("SELECT * from `table` WHERE id=?");
             pstmt.setInt(1, id);
             resultSet = pstmt.executeQuery();
-
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
-
         Table table = null;
         try {
             while (resultSet.next()) {
@@ -34,7 +29,6 @@ public class TableRepository {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
         try {
             pstmt.close();
             resultSet.close();
@@ -42,7 +36,6 @@ public class TableRepository {
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
-
         return table;
     }
 
@@ -50,17 +43,13 @@ public class TableRepository {
         Connection connection = SQLConnector.getConnection();
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
-
         try {
             pstmt = connection.prepareStatement("SELECT * from `table`");
             resultSet = pstmt.executeQuery();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
-
         List<Table> data = mapperList(resultSet);
-
-
         try {
             pstmt.close();
             resultSet.close();
@@ -68,20 +57,16 @@ public class TableRepository {
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
-
         return data;
     }
 
     public void create(Table table) {
-
     }
 
     public Table update(int id, Table table) {
         return null;
     }
-
     public void delete(int id) {
-
     }
 
     private static List<Table> mapperList(ResultSet resultSet) {
@@ -103,7 +88,6 @@ public class TableRepository {
             t.setNumber(resultSet.getInt("number"));
             t.setSeats(resultSet.getInt("seats"));
             t.setBusy(resultSet.getBoolean("is_busy"));
-
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }

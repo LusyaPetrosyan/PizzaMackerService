@@ -2,7 +2,6 @@ package com.example.pizzamakerservice.repository;
 
 import com.example.pizzamakerservice.model.Order;
 import com.example.pizzamakerservice.util.SQLConnector;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +14,6 @@ public class OrderRepository {
 
     public void create(Order order) {
         Connection connection = SQLConnector.getConnection();
-
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO `order` VALUES(0,?,?,?,?,?) ");
             preparedStatement.setInt(1, order.getTableId());
@@ -24,14 +22,11 @@ public class OrderRepository {
             preparedStatement.setInt(4, order.getQuantity());
             preparedStatement.setFloat(5, order.getAmount());
             int i = preparedStatement.executeUpdate();
-
-
             preparedStatement.close();
             connection.close();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
-
     }
 
     public List<Order> read(int tableId) {
@@ -46,18 +41,15 @@ public class OrderRepository {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * from `order`");
             ResultSet resultSet = preparedStatement.executeQuery();
             data.addAll(listMapper(resultSet));
-
             preparedStatement.close();
             connection.close();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
-
         return data;
     }
 
     public Order update(Order order) {
-
         Connection connection = SQLConnector.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE `order` SET  table_id = ?,  in_process = ?, product_id=?, quantity=?, amount=? WHERE id = ?");
@@ -67,23 +59,17 @@ public class OrderRepository {
             preparedStatement.setInt(4, order.getQuantity());
             preparedStatement.setFloat(5, order.getAmount());
             preparedStatement.setInt(6, order.getId());
-
             int i = preparedStatement.executeUpdate();
-
             preparedStatement.close();
             connection.close();
-
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-
-
         return order;
     }
 
     public void delete(int tableId) {
         Connection connection = SQLConnector.getConnection();
-
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM `order` WHERE table_id = ?");
             preparedStatement.setInt(1, tableId);
@@ -94,7 +80,6 @@ public class OrderRepository {
             sqlException.printStackTrace();
         }
     }
-
 
     private List<Order> listMapper(ResultSet resultSet) throws SQLException {
         List<Order> data = new LinkedList<>();
@@ -111,9 +96,6 @@ public class OrderRepository {
         int product_id = resultSet.getInt("product_id");
         int quantity = resultSet.getInt("quantity");
         float amount = resultSet.getFloat("amount");
-
         return new Order(id, table_id, in_process, product_id, quantity, amount);
-
     }
-
 }

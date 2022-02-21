@@ -9,7 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Table {
-
     private int id;
     private int number;
     private int seats;

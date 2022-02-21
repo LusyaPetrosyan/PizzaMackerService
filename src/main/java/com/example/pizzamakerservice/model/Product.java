@@ -13,17 +13,10 @@ import java.util.Objects;
 @NoArgsConstructor
 
 public class Product {
-
     private int id;
-
     private int productTypeId;
-
     private String name;
-
     private float price;
-
     private String imagePath;
-
     private String currency;
-
 }

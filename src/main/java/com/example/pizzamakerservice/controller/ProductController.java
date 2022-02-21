@@ -5,7 +5,6 @@ import com.example.pizzamakerservice.service.ProductService;
 import com.example.pizzamakerservice.service.impl.ProductServiceImpl;
 import com.example.pizzamakerservice.util.AccessControlOriginFilter;
 import com.google.gson.Gson;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +16,6 @@ import java.util.List;
 public class ProductController extends HttpServlet {
     private final ProductService productService = new ProductServiceImpl();
     private final Gson gson = new Gson();
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,17 +30,14 @@ public class ProductController extends HttpServlet {
                 data.addAll(productService.readAllByProductType(productTypeId));
                 break;
             case "get-by-id":
-
                 int id = Integer.parseInt(req.getParameter("product_id"));
                 ProductDto product = productService.read(id);
                 data.add(product);
                 break;
-
             case "get-all":
                 data.addAll(productService.readAll());
                 break;
         }
-
         resp.getWriter().println(gson.toJson(data));
     }
 

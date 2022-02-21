@@ -9,9 +9,7 @@ public class SQLConnector {
     private static final String password = "";
     private static final String DB = "pizzaMakerService";
     private static final String url = "jdbc:mysql://localhost:3306/" + DB;
-
     private static Connection connection = null;
-
     private SQLConnector() {
     }
 
@@ -21,11 +19,9 @@ public class SQLConnector {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 connection = DriverManager.getConnection(url, user, password);
             }
-
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
         return connection;
     }
-
 }

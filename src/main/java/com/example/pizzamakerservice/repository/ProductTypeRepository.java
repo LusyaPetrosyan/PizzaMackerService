@@ -2,7 +2,6 @@ package com.example.pizzamakerservice.repository;
 
 import com.example.pizzamakerservice.model.ProductType;
 import com.example.pizzamakerservice.util.SQLConnector;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +18,6 @@ public class ProductTypeRepository {
             pstmt = connection.prepareStatement("SELECT * FROM `product_type` WHERE id=?");
             pstmt.setInt(1, id);
             resultSet = pstmt.executeQuery();
-
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
@@ -49,7 +47,6 @@ public class ProductTypeRepository {
             pstmt = connection.prepareStatement("SELECT * FROM `product_type` WHERE name=?");
             pstmt.setString(1, name);
             resultSet = pstmt.executeQuery();
-
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
@@ -94,10 +91,8 @@ public class ProductTypeRepository {
 
     public void create(ProductType productType) {
         Connection connection = SQLConnector.getConnection();
-
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO `product_type` values (0,?)");
-
             preparedStatement.setString(1, productType.getName());
             int i = preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -105,7 +100,6 @@ public class ProductTypeRepository {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-
     }
 
     public ProductType update(int id, ProductType productType) {

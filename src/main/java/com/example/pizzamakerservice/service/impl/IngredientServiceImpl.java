@@ -3,7 +3,6 @@ package com.example.pizzamakerservice.service.impl;
 import com.example.pizzamakerservice.model.Ingredient;
 import com.example.pizzamakerservice.repository.IngredientRepository;
 import com.example.pizzamakerservice.service.IngredientService;
-
 import java.util.List;
 
 public class IngredientServiceImpl implements IngredientService {

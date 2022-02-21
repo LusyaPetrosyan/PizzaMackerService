@@ -3,8 +3,6 @@ package com.example.pizzamakerservice.service.impl;
 import com.example.pizzamakerservice.model.Table;
 import com.example.pizzamakerservice.repository.TableRepository;
 import com.example.pizzamakerservice.service.TableService;
-
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,16 +37,13 @@ public class TableServiceImpl implements TableService {
         tableRepository.create(table);
     }
 
-
     @Override
     public Table update(int id, Table table) {
-
         Table read = read(id);
         if (read != null) {
             return tableRepository.update(id, table);
         }
         return null;
-
     }
 
     @Override

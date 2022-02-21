@@ -5,7 +5,6 @@ import com.example.pizzamakerservice.service.TableService;
 import com.example.pizzamakerservice.service.impl.TableServiceImpl;
 import com.example.pizzamakerservice.util.AccessControlOriginFilter;
 import com.google.gson.Gson;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +26,6 @@ public class TableController extends HttpServlet {
         AccessControlOriginFilter.setAccessControlHeaders(resp);
         List<Table> data = new LinkedList<>();
         final String url = req.getParameter("url");
-
         switch (url) {
             case "get-all":
                 data = tableService.readAll();
@@ -51,7 +49,6 @@ public class TableController extends HttpServlet {
                 resp.sendError(404, "provided URL not found for analyse");
                 break;
         }
-
         resp.getWriter().println(gson.toJson(data));
     }
 
@@ -67,9 +64,7 @@ public class TableController extends HttpServlet {
         AccessControlOriginFilter.setAccessControlHeaders(resp);
         Table table = mapper(req);
         int id = table.getId();
-        resp.
-                getWriter().
-                println(gson.toJson(tableService.update(id, table)));
+        resp.getWriter().println(gson.toJson(tableService.update(id, table)));
     }
 
     @Override
@@ -77,7 +72,6 @@ public class TableController extends HttpServlet {
         AccessControlOriginFilter.setAccessControlHeaders(resp);
         int id = Integer.parseInt(req.getParameter("id"));
         tableService.delete(id);
-
     }
 
     private Table mapper(HttpServletRequest req) {
@@ -85,7 +79,6 @@ public class TableController extends HttpServlet {
         int number;
         int seats;
         boolean isBusy;
-
         try {
             id = Integer.parseInt(req.getParameter("id"));
         } catch (NumberFormatException ex) {
@@ -102,7 +95,6 @@ public class TableController extends HttpServlet {
             seats = 0;
         }
         isBusy = Boolean.parseBoolean(req.getParameter("is-busy"));
-
         Table table = new Table(id, number, seats, isBusy);
         return table;
     }

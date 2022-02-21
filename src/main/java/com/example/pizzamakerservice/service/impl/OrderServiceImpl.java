@@ -6,10 +6,8 @@ import com.example.pizzamakerservice.repository.OrderRepository;
 import com.example.pizzamakerservice.service.OrderService;
 import com.example.pizzamakerservice.service.ProductService;
 import com.example.pizzamakerservice.model.Order;
-
 import java.util.LinkedList;
 import java.util.List;
-
 
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository = new OrderRepository();
@@ -29,14 +27,12 @@ public class OrderServiceImpl implements OrderService {
         data.setQuantity(fromDb.get(0).getQuantity());
         data.setProducts(new LinkedList<>());
         int amount = 0;
-
         for (Order item : fromDb) {
             Product product = productService.readProduct(item.getProductId());
             amount += item.getQuantity() * product.getPrice();
             data.getProducts().add(product);
         }
         data.setAmount(amount);
-
         return data;
     }
 
@@ -51,31 +47,23 @@ public class OrderServiceImpl implements OrderService {
                     break;
                 }
             }
-
             if (i != data.size()) {
                 OrderDto orderDto = data.get(i);
                 Product product = productService.readProduct(item.getProductId());
                 orderDto.getProducts().add(product);
                 orderDto.setAmount(orderDto.getAmount() + product.getPrice() * item.getQuantity());
-
-
             } else {
                 OrderDto orderDto = new OrderDto();
                 orderDto.setTableId(item.getTableId());
                 orderDto.setInProcess(item.isInProcess());
                 orderDto.setProducts(new LinkedList<>());
-
                 Product product = productService.readProduct(item.getProductId());
                 orderDto.getProducts().add(product);
                 orderDto.setAmount(item.getQuantity() * product.getPrice());
                 data.add(orderDto);
-
             }
-
-            // checked identifier
             item.setId(-1);
         });
-
         return data;
     }
 
@@ -86,7 +74,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void delete(int tableId) {
-
         orderRepository.delete(tableId);
     }
 }

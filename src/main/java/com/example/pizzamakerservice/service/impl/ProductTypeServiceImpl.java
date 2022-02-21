@@ -3,7 +3,6 @@ package com.example.pizzamakerservice.service.impl;
 import com.example.pizzamakerservice.model.ProductType;
 import com.example.pizzamakerservice.repository.ProductTypeRepository;
 import com.example.pizzamakerservice.service.ProductTypeService;
-
 import java.util.List;
 
 public class ProductTypeServiceImpl implements ProductTypeService {

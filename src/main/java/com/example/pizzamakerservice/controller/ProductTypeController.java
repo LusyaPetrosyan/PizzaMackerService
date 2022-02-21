@@ -5,7 +5,6 @@ import com.example.pizzamakerservice.service.ProductTypeService;
 import com.example.pizzamakerservice.service.impl.ProductTypeServiceImpl;
 import com.example.pizzamakerservice.util.AccessControlOriginFilter;
 import com.google.gson.Gson;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +45,6 @@ public class ProductTypeController extends HttpServlet {
                 resp.sendError(404, "provided URL not found for analyse");
                 break;
         }
-
         resp.getWriter().println(gson.toJson(data));
     }
 
@@ -57,12 +55,6 @@ public class ProductTypeController extends HttpServlet {
 
         int id = list.get(list.size() - 1).getId() + 1;
         String name = req.getParameter("name");
-
-//        ProductType data = new ProductType(id,name);
-
-//        list.add(data);
-//
-//        resp.getWriter().println(gson.toJson(list));
     }
 
     @Override
@@ -70,18 +62,15 @@ public class ProductTypeController extends HttpServlet {
         AccessControlOriginFilter.setAccessControlHeaders(resp);
         System.out.println("desk");
         resp.getWriter().println("this is PUT method");
-
         ProductType pdtype = null;
 
         int id = Integer.parseInt(req.getParameter("id"));
-
         for (int i = 0; i < list.size(); i++){
             if(list.get(i).getId() == id){
                 pdtype = list.get(i);
                 break;
             }
         }
-
         if(pdtype == null){
             resp.sendError(400, "there is no table with mentioned id");
             return;
@@ -89,7 +78,6 @@ public class ProductTypeController extends HttpServlet {
 
         String name = req.getParameter("name");
         pdtype.setName(name);
-
         resp.getWriter().println(gson.toJson(list));
     }
 
@@ -97,15 +85,10 @@ public class ProductTypeController extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AccessControlOriginFilter.setAccessControlHeaders(resp);
         resp.getWriter().println("this is a delete method");
-
         int delId = Integer.parseInt(req.getParameter("idToDelete"));
-
         List<ProductType> collect = list.stream().filter(item -> item.getId() == delId).collect(Collectors.toList());
-
         list.removeAll(collect);
-
         resp.getWriter().println(gson.toJson(list));
     }
-
 }
 
